@@ -1,13 +1,44 @@
-
-import React from "react";
+import React, { useState } from "react";
 import './../styles/App.css';
 
+const items = [
+  { name: "Apple", price: 20 },
+  { name: "Banana", price: 10 },
+  { name: "Neutella", price: 30 },
+  { name: "Razor", price: 5 },
+  { name: "CornFlakes", price: 15 },
+  { name: "Sound Bar", price: 50 },
+  { name: "Iphone", price: 80 },
+];
+
 const App = () => {
+  const [budget, setBudget] = useState(16);
+
   return (
     <div>
-        {/* Do not remove the main div */}
-    </div>
-  )
-}
+      {/* Do not remove the main div */}
+      <h3>Enter your budget to check available items:</h3>
+      <input
+        type="number"
+        value={budget}
+        onChange={(e) => setBudget(e.target.value)}
+      />
 
-export default App
+      <h3>Items you can buy are in Green color</h3>
+      <table>
+        <tbody>
+          {items.map((item) => (
+            <tr key={item.name}>
+              <td>{item.name}</td>
+              <td style={{ color: item.price > Number(budget) ? "red" : "green" }}>
+                {item.price}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default App;
